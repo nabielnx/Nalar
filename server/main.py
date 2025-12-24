@@ -24,7 +24,7 @@ app.add_middleware(
 llm = ChatGroq(
     temperature=0.2, 
     groq_api_key=os.getenv("GROQ_API_KEY"), 
-    model_name="llama3-8b-8192"
+    model_name="llama-3.1-8b-instant"
 )
 
 # Schema data yang masuk dari Frontend
@@ -57,19 +57,15 @@ async def run_code(request: CodeRequest):
 
 @app.post("/explain")
 async def explain_error(request: CodeRequest):
-    """Endpoint AI Mentor untuk menjelaskan error"""
-    # Prompt khusus untuk memberikan karakter "Nalar" sebagai mentor
-    prompt = (
-        "Kamu adalah 'Nalar', seorang mentor pemrograman yang sangat ramah "
-        "untuk siswa sekolah di Indonesia. Gunakan bahasa Indonesia yang santai dan suportif. "
-        "Siswa ini sedang belajar dan kodenya mengalami error. "
-        f"Berikut adalah kodenya:\n\n{request.code}\n\n"
-        "Tolong jelaskan apa yang salah dengan analogi sederhana dan berikan solusi "
-        "tanpa langsung memberikan jawaban jadi, ajak mereka berpikir."
-    )
+    # Debug: Cek apakah Key terbaca di terminal backend
+    print(f"DEBUG - API KEY: {os.getenv('GROQ_API_KEY')[:10]}...") 
+    
+    prompt = f"Jelaskan kenapa kode ini error: {request.code}"
     
     try:
         response = llm.invoke(prompt)
         return {"explanation": response.content}
     except Exception as e:
-        return {"explanation": "Aduh, otak Nalar lagi sedikit error nih. Coba tanya lagi ya!"}
+        # Tampilkan error aslinya di terminal uvicorn
+        print(f"ERROR ASLI DARI AI: {str(e)}") 
+        return {"explanation": f"Nalar error karena: {str(e)}"}
