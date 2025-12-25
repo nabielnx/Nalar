@@ -1,0 +1,59 @@
+# ===========================
+#  NALAR PROJECT .GITIGNORE
+# ===========================
+
+# --------- GENERAL ---------
+.DS_Store
+*.log
+*.pem
+Thumbs.db
+
+# --------- PYTHON (server) ---------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+env/
+.env
+*.egg-info/
+dist/
+build/
+.Python
+
+# --------- NODE.JS (client) ---------
+node_modules/
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# --------- NEXT.JS ---------
+.next/
+out/
+
+# --------- ENV FILES ---------
+.env
+.env.*
+!.env.example
+
+# --------- IDE ---------
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --------- TYPESCRIPT ---------
+*.tsbuildinfo
+next-env.d.ts
+
+# --------- VERCEL ---------
+.vercel
+
+# --------- TESTING ---------
+coverage/
+.nyc_output/
