@@ -1,60 +1,71 @@
-# ========================
-# Node.js / Client
-# ========================
+# =============================================
+# Python
+# =============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+
+# Python environment files
+*.env
+.env
+.env.local
+.env.*
+
+# Server specific
+server/venv/
+server/__pycache__/
+server/.env
+
+# =============================================
+# Node.js / Next.js
+# =============================================
 node_modules/
 .next/
 out/
 build/
-.pnp/
+.vercel
+.pnp
 .pnp.js
-*.tsbuildinfo
+.yarn-integrity
+
+# Package manager logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# ========================
-# Python / Server  
-# ========================
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-venv/
-.venv/
-env/
-.Python
-*.egg-info/
-dist/
-
-# ========================
-# Environment Variables
-# ========================
-.env
-.env.local
-.env.*.local
-*.env
-
-# ========================
+# =============================================
 # IDE & Editors
-# ========================
-.vscode/
+# =============================================
 .idea/
+.vscode/
 *.swp
 *.swo
-*~
+*.sublime-workspace
+*.sublime-project
 
-# ========================
+# =============================================
 # OS Generated
-# ========================
+# =============================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
-desktop.ini
 
-# ========================
+# =============================================
 # Misc
-# ========================
+# =============================================
 *.log
 *.pem
-.vercel
 coverage/
+.turbo
+*.tsbuildinfo
