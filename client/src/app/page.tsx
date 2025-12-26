@@ -107,7 +107,7 @@ export default function Home() {
     }
   };
 
-  if (!user) return <div className="bg-[#030712] min-h-screen flex items-center justify-center text-blue-500 animate-pulse">Loading Workspace...</div>;
+
 
   return (
     <main className="flex h-screen overflow-hidden text-slate-200 font-sans selection:bg-blue-500/30 selection:text-white">
@@ -132,7 +132,7 @@ export default function Home() {
             </div>
             <div>
               <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-1">
-                NALAR<span className="text-blue-500 text-2xl animate-pulse">.</span>
+                NALAR<span className="text-blue-500 text-2xl animate-pulse"></span>
               </h1>
               <p className="text-[10px] text-slate-500 font-medium tracking-wider">AI CODING MENTOR</p>
             </div>
@@ -179,10 +179,10 @@ export default function Home() {
           <div className="flex items-center justify-between p-2 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
             <div className="flex items-center gap-3 truncate">
               <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-slate-800 to-slate-700 text-slate-200 flex items-center justify-center text-xs font-bold ring-1 ring-white/10 shadow-inner">
-                {user.email?.charAt(0).toUpperCase()}
+                {user?.email?.charAt(0).toUpperCase()}
               </div>
               <div className="flex flex-col truncate">
-                <span className="text-xs font-medium truncate text-slate-200 group-hover:text-white transition-colors">{user.email?.split('@')[0]}</span>
+                <span className="text-xs font-medium truncate text-slate-200 group-hover:text-white transition-colors">{user?.email?.split('@')[0]}</span>
                 <span className="text-[10px] text-slate-500 truncate">Pro Plan</span>
               </div>
             </div>
