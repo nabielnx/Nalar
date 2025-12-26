@@ -16,6 +16,7 @@ env/
 .env
 .env.local
 .env.*
+!.env.example
 
 # Server specific
 server/venv/
