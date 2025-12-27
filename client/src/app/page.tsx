@@ -1,5 +1,5 @@
 "use client";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Editor from "@monaco-editor/react";
@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 
 export default function Home() {
+  const supabase = createClient();
   const [code, setCode] = useState("# Ketik kodemu di sini\nprint('Halo Nalar!')");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
