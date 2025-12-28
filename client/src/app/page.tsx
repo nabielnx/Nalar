@@ -231,10 +231,10 @@ export default function Home() {
           </div>
         </nav>
 
-        <div className="flex-1 p-4 md:p-6 md:pt-2 overflow-hidden w-full max-w-[1600px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-2">
+        <div className="flex-1 p-4 md:p-6 md:pt-2 overflow-y-auto lg:overflow-hidden w-full max-w-[1600px] mx-auto custom-scrollbar">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:h-full pb-2">
 
-            <div className="flex flex-col gap-4 h-full">
+            <div className="flex flex-col gap-4 min-h-[500px] lg:h-full">
               <div className="flex-1 liquid-glass rounded-3xl overflow-hidden relative flex flex-col border border-white/5">
                 <div className="h-12 bg-white/[0.02] border-b border-white/5 flex items-center px-6 justify-between">
                   <div className="flex items-center gap-3">
@@ -255,7 +255,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-6 h-full overflow-hidden">
+            <div className="flex flex-col gap-6 min-h-[800px] lg:h-full lg:overflow-hidden">
               <div className="liquid-glass-heavy rounded-3xl overflow-hidden flex flex-col h-[45%] border border-white/10">
                 <div className="px-6 py-4 border-b border-white/5 flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] animate-pulse" />
