@@ -83,18 +83,25 @@ export default function Login() {
     };
 
     return (
-        <main className="min-h-screen bg-slate-950 flex items-center justify-center p-6 text-white selection:bg-blue-500/30 font-sans">
-            <div className="bg-slate-900 p-8 rounded-3xl border border-slate-800 w-full max-w-md shadow-2xl overflow-hidden relative">
-                <header className="mb-8 text-center">
-                    <h1 className="text-4xl font-black text-blue-500 tracking-tighter italic">NALAR.</h1>
-                    <p className="text-slate-400 text-sm mt-2 font-medium italic">"Bebaskan nalarmu, mulai dengan satu klik."</p>
+        <main className="min-h-screen bg-[#050505] flex items-center justify-center p-6 text-white selection:bg-white/10 font-sans relative overflow-hidden">
+            {/* Background elements for depth */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/5 rounded-full blur-[120px]" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-white/5 rounded-full blur-[120px]" />
+
+            <div className="liquid-glass p-10 rounded-[2rem] w-full max-w-md shadow-2xl overflow-hidden relative border border-white/5">
+                <header className="mb-10 text-center">
+                    <h1 className="text-5xl font-black text-white tracking-tighter italic drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">NALAR.</h1>
+                    <p className="text-neutral-500 text-xs mt-3 font-medium uppercase tracking-[0.3em]">Bebaskan Nalarmu</p>
                 </header>
 
                 {/* --- NOTIFIKASI MESSAGE --- */}
                 {message && (
-                    <div className={`p-4 rounded-xl mb-6 text-sm font-bold border animate-in fade-in zoom-in duration-300 ${message.type === 'error' ? 'bg-red-500/10 border-red-500/50 text-red-400' : 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400'
+                    <div className={`p-4 rounded-2xl mb-8 text-xs font-bold border backdrop-blur-md animate-in fade-in slide-in-from-top-4 duration-500 ${message.type === 'error' ? 'bg-white/[0.02] border-white/10 text-neutral-400' : 'bg-white/[0.05] border-white/20 text-white'
                         }`}>
-                        {message.type === 'error' ? '🚫 ' : '✅ '} {message.text}
+                        <div className="flex items-center gap-3">
+                            <div className={`w-1.5 h-1.5 rounded-full ${message.type === 'error' ? 'bg-neutral-500' : 'bg-white animate-pulse'}`} />
+                            {message.text}
+                        </div>
                     </div>
                 )}
 
@@ -102,50 +109,52 @@ export default function Login() {
                 <button
                     onClick={handleGoogleLogin}
                     disabled={loading}
-                    className="w-full flex items-center justify-center gap-3 py-4 px-4 bg-white text-slate-900 rounded-2xl font-bold hover:bg-slate-100 transition-all active:scale-[0.98] mb-6 shadow-xl disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-3 py-4 px-4 bg-white text-black rounded-2xl font-bold hover:bg-neutral-200 transition-all active:scale-[0.98] mb-8 shadow-xl disabled:opacity-50"
                 >
                     <GoogleLogo />
-                    Masuk dengan Google
+                    <span className="tracking-tight">Authorize with Google</span>
                 </button>
 
-                <div className="relative mb-6">
-                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-800"></span></div>
-                    <div className="relative flex justify-center text-[10px] uppercase font-bold tracking-widest"><span className="bg-slate-900 px-3 text-slate-500 font-bold">Atau pakai Email</span></div>
+                <div className="relative mb-8">
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-white/5"></span></div>
+                    <div className="relative flex justify-center text-[9px] uppercase font-bold tracking-[0.2em]"><span className="bg-[#050505] px-4 text-neutral-600">Secure Protocol</span></div>
                 </div>
 
                 <form onSubmit={handleLogin} className="flex flex-col gap-4">
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        className="p-4 bg-slate-800/50 rounded-xl border border-slate-700 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="p-4 bg-slate-800/50 rounded-xl border border-slate-700 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                    <div className="space-y-4">
+                        <input
+                            type="email"
+                            placeholder="Email Address"
+                            className="w-full p-4 bg-white/[0.03] rounded-2xl border border-white/5 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all text-sm placeholder:text-neutral-600"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Entry Key"
+                            className="w-full p-4 bg-white/[0.03] rounded-2xl border border-white/5 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all text-sm placeholder:text-neutral-600"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="py-4 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl font-bold text-lg transition-all active:scale-[0.98] mt-2 shadow-lg shadow-blue-900/20"
+                        className="glass-button py-4 mt-4 rounded-2xl font-bold text-base text-white disabled:opacity-50 border border-white/10"
                     >
-                        {loading ? "Memproses..." : "Masuk Sekarang"}
+                        {loading ? "Authenticating..." : "Establish Connection"}
                     </button>
 
                     <button
                         type="button"
                         onClick={handleSignUp}
                         disabled={loading}
-                        className="text-slate-500 text-xs hover:text-slate-300 transition-all font-semibold py-2"
+                        className="text-neutral-600 text-[10px] uppercase tracking-widest hover:text-white transition-all font-bold py-4"
                     >
-                        Belum punya akun? Daftar di sini
+                        Request New Instance
                     </button>
                 </form>
             </div>
