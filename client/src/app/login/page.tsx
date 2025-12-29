@@ -15,25 +15,54 @@ const GoogleLogo = () => (
 
 export default function Login() {
     const supabase = createClient();
+    const [mode, setMode] = useState<'login' | 'register'>('login');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'error' | 'success', text: string } | null>(null);
     const router = useRouter();
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setMessage(null);
 
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (mode === 'register') {
+            if (password !== confirmPassword) {
+                setMessage({ type: 'error', text: "Passwords do not match!" });
+                setLoading(false);
+                return;
+            }
 
-        if (error) {
-            setMessage({ type: 'error', text: error.message });
-            setLoading(false);
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    emailRedirectTo: `${window.location.origin}/auth/callback`,
+                },
+            });
+
+            if (error) {
+                setMessage({ type: 'error', text: error.message });
+            } else {
+                if (data.session) {
+                    setMessage({ type: 'success', text: "Registration successful!" });
+                    router.push("/");
+                } else {
+                    setMessage({ type: 'success', text: "Please check your email for verification link." });
+                }
+            }
         } else {
-            router.push("/");
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                setMessage({ type: 'error', text: error.message });
+            } else {
+                router.push("/");
+            }
         }
+        setLoading(false);
     };
 
     const handleGoogleLogin = async () => {
@@ -41,7 +70,6 @@ export default function Login() {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                // redirectTo memastikan user balik ke web Lu setelah login sukses
                 redirectTo: `${window.location.origin}/auth/callback`,
             },
         });
@@ -50,36 +78,6 @@ export default function Login() {
             setMessage({ type: 'error', text: error.message });
             setLoading(false);
         }
-    };
-
-    const handleSignUp = async () => {
-        if (!email || !password) {
-            setMessage({ type: 'error', text: "Isi email sama password dulu, Jenderal!" });
-            return;
-        }
-
-        setLoading(true);
-        setMessage(null);
-
-        const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                emailRedirectTo: `${window.location.origin}/auth/callback`,
-            },
-        });
-
-        if (error) {
-            setMessage({ type: 'error', text: error.message });
-        } else {
-            if (data.session) {
-                setMessage({ type: 'success', text: "Registrasi Berhasil!" });
-                router.push("/");
-            } else {
-                setMessage({ type: 'success', text: "Cek inbox/spam email buat verifikasi!" });
-            }
-        }
-        setLoading(false);
     };
 
     return (
@@ -93,6 +91,21 @@ export default function Login() {
                     <h1 className="text-5xl font-black text-white tracking-tighter italic drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">NALAR.</h1>
                     <p className="text-neutral-500 text-xs mt-3 font-medium uppercase tracking-[0.3em]">Bebaskan Nalarmu</p>
                 </header>
+
+                <div className="flex p-1 bg-white/[0.03] rounded-2xl mb-8 border border-white/5">
+                    <button
+                        onClick={() => { setMode('login'); setMessage(null); }}
+                        className={`flex-1 py-3 text-xs font-bold uppercase tracking-widest rounded-xl transition-all ${mode === 'login' ? 'bg-white/10 text-white shadow-lg' : 'text-neutral-500 hover:text-neutral-300'}`}
+                    >
+                        Login
+                    </button>
+                    <button
+                        onClick={() => { setMode('register'); setMessage(null); }}
+                        className={`flex-1 py-3 text-xs font-bold uppercase tracking-widest rounded-xl transition-all ${mode === 'register' ? 'bg-white/10 text-white shadow-lg' : 'text-neutral-500 hover:text-neutral-300'}`}
+                    >
+                        Register
+                    </button>
+                </div>
 
                 {/* --- NOTIFIKASI MESSAGE --- */}
                 {message && (
@@ -157,6 +170,20 @@ export default function Login() {
                         Request New Instance
                     </button>
                 </form>
+
+                <div className="relative my-8">
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-white/5"></span></div>
+                    <div className="relative flex justify-center text-[9px] uppercase font-bold tracking-[0.2em]"><span className="bg-[#050505] px-4 text-neutral-600">Secure Protocol</span></div>
+                </div>
+
+                <button
+                    onClick={handleGoogleLogin}
+                    disabled={loading}
+                    className="w-full flex items-center justify-center gap-3 py-4 px-4 bg-white text-black rounded-2xl font-bold hover:bg-neutral-200 transition-all active:scale-[0.98] shadow-xl disabled:opacity-50"
+                >
+                    <GoogleLogo />
+                    <span className="tracking-tight">Authorize with Google</span>
+                </button>
             </div>
         </main>
     );
