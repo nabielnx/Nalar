@@ -1,21 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  /* Modern Dark Theme Palette */
-  --bg-primary: #030712;    /* Gray 950 (Deep Space) */
-  --bg-secondary: #0f172a;  /* Slate 900 */
+  /* Monochrome Liquid Glass Palette */
+  --bg-primary: #050505;     /* Pure Dark */
+  --bg-secondary: #0a0a0a;   /* Deep Slate */
   
-  --primary: #3b82f6;       /* Blue 500 */
-  --primary-glow: rgba(59, 130, 246, 0.5);
+  --primary: #ffffff;        /* Monochrome White */
+  --primary-glow: rgba(255, 255, 255, 0.15);
   
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-surface: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-border-bright: rgba(255, 255, 255, 0.12);
+  --glass-surface: rgba(255, 255, 255, 0.02);
+  --glass-surface-heavy: rgba(255, 255, 255, 0.06);
   
-  --text-primary: #f8fafc;  /* Slate 50 */
-  --text-secondary: #94a3b8; /* Slate 400 */
+  --text-primary: #f5f5f5;   /* Near white */
+  --text-secondary: #737373; /* Neutral gray */
+  --text-muted: #404040;     /* Dark gray */
   
-  --success: #22c55e;
-  --error: #ef4444;
+  --success: #f5f5f5;        /* Monochrome Success (White with subtle glow) */
+  --error: #a3a3a3;          /* Monochrome Error (Desaturated gray) */
   
   /* Fonts */
   --font-sans: 'Inter', sans-serif;
@@ -27,48 +30,84 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   
-  /* Rich Gradient Background */
+  /* Organic Monochrome Gradient Background */
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 25%);
+    radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.03), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.02), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01), transparent 60%);
   background-attachment: fixed;
   
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
 
-/* Glassmorphism Utilities */
-.glass-panel {
+/* Liquid Glass Utilities */
+.liquid-glass {
   background: var(--glass-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-border);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px var(--glass-border);
+}
+
+.liquid-glass-heavy {
+  background: var(--glass-surface-heavy);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--glass-border-bright);
 }
 
 .glass-button {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+
+.glass-button:hover::after {
+  transform: translateX(100%);
 }
 
 .glass-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px var(--primary-glow);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
 }
 
-/* Custom Scrollbar for Webkit */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }

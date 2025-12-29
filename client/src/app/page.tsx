@@ -122,29 +122,29 @@ export default function Home() {
   };
 
   return (
-    <main className="flex h-screen overflow-hidden text-slate-200 font-sans selection:bg-blue-500/30 selection:text-white bg-[#020617]">
+    <main className="flex h-screen overflow-hidden text-neutral-200 font-sans selection:bg-white/10 selection:text-white bg-[#050505]">
 
       {isSidebarOpen && (
         <div className="fixed inset-0 bg-black/60 z-[60] md:hidden backdrop-blur-md transition-all duration-500" onClick={() => setIsSidebarOpen(false)} />
       )}
 
       <aside className={`
-        fixed inset-y-4 left-4 z-[70] w-72 rounded-2xl flex flex-col bg-[#0b0f1a]/80 backdrop-blur-xl shadow-2xl
-        transition-all duration-500 transform border border-white/5
+        fixed inset-y-4 left-4 z-[70] w-72 rounded-[2rem] flex flex-col liquid-glass
+        transition-all duration-500 transform
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-[120%]"}
         md:relative md:translate-x-0 md:flex md:inset-auto md:h-[calc(100vh-2rem)] md:my-4 md:ml-4
       `}>
-        <div className="p-6 flex justify-between items-center border-b border-white/5">
-          <div className="flex items-center gap-3 group">
-            <div className="p-2.5 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow-lg shadow-blue-500/20">
-              <Terminal size={20} className="text-white" />
+        <div className="p-8 flex justify-between items-center border-b border-white/5">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-white rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+              <Terminal size={20} className="text-black" />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-white italic">NALAR.</h1>
-              <p className="text-[10px] text-slate-500 font-medium tracking-wider">AI MENTOR</p>
+              <h1 className="text-xl font-black tracking-tighter text-white">NALAR</h1>
+              <p className="text-[9px] text-neutral-500 font-bold tracking-[0.2em]">Ayo Ngoding!</p>
             </div>
           </div>
-          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden p-2 hover:bg-white/5 rounded-lg text-slate-400 hover:text-white">
+          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden p-2 hover:bg-white/5 rounded-lg text-neutral-400 hover:text-white">
             <X size={18} />
           </button>
         </div>
@@ -152,26 +152,26 @@ export default function Home() {
         <div className="flex-1 overflow-y-auto px-4 py-6 scrollbar-thin">
           <button
             onClick={handleNewProject}
-            className="w-full mb-8 p-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center gap-2 group border border-blue-400/20"
+            className="w-full mb-8 p-4 rounded-2xl glass-button text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-3 border border-white/10"
           >
-            <Plus size={18} /> New Workspace
+            <Plus size={16} /> New Workspace
           </button>
 
           <div className="flex items-center gap-2 mb-4 px-2 text-slate-500">
-            <FolderCode size={14} className="text-blue-500" />
-            <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Your Projects</h2>
+            <FolderCode size={14} className="text-white-500" />
+            <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Kodemu</h2>
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             {savedProjects.map((p) => (
               <button
                 key={p.id}
-                onClick={() => loadProject(p)} // Memanggil loadProject agar penjelasan AI ikut ditarik
-                className="group flex items-center justify-between p-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-all duration-200"
+                onClick={() => loadProject(p)}
+                className="group flex items-center justify-between p-4 rounded-2xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all duration-300"
               >
                 <div className="flex flex-col text-left truncate w-full">
-                  <span className="text-sm font-medium text-slate-300 group-hover:text-blue-400 transition-colors truncate">{p.title}</span>
-                  <span className="text-[10px] text-slate-500 mt-0.5 font-mono opacity-60">
+                  <span className="text-sm font-semibold text-neutral-400 group-hover:text-white transition-colors truncate">{p.title}</span>
+                  <span className="text-[9px] text-neutral-600 mt-1 font-bold uppercase tracking-widest">
                     {new Date(p.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
                   </span>
                 </div>
@@ -180,20 +180,20 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="p-4 border-t border-white/5 bg-black/20">
-          <div className="flex items-center justify-between p-2 rounded-xl bg-white/5 border border-white/5 transition-colors group">
+        <div className="p-6 border-t border-white/5 bg-white/[0.01]">
+          <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.02] border border-white/5 transition-colors group">
             <div className="flex items-center gap-3 truncate">
-              <div className="w-9 h-9 rounded-lg bg-slate-800 text-slate-200 flex items-center justify-center text-xs font-bold ring-1 ring-white/10 shadow-inner">
+              <div className="w-9 h-9 rounded-xl bg-white/[0.05] text-white flex items-center justify-center text-xs font-black ring-1 ring-white/10">
                 {user?.email?.charAt(0).toUpperCase()}
               </div>
               <div className="flex flex-col truncate">
-                <span className="text-xs font-medium truncate text-slate-200 group-hover:text-white">{user?.email?.split('@')[0]}</span>
-                <span className="text-[10px] text-slate-500 truncate">Pro Plan</span>
+                <span className="text-xs font-bold truncate text-neutral-300 group-hover:text-white uppercase tracking-tight">{user?.email?.split('@')[0]}</span>
+                <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">Authorized</span>
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
+              className="p-2 text-neutral-600 hover:text-white hover:bg-white/5 rounded-xl transition-all"
             >
               <LogOut size={16} />
             </button>
@@ -208,40 +208,38 @@ export default function Home() {
               <Menu size={20} />
             </button>
             <div className="hidden md:flex items-center gap-3 bg-slate-900/40 px-4 py-2 rounded-full border border-white/5">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-              <span className="text-xs font-medium text-slate-300">Environment Ready</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <button
               onClick={handleSave}
               disabled={isLoading}
-              className="px-4 py-2.5 bg-slate-800 rounded-xl text-slate-300 transition-all flex items-center gap-2 text-sm font-medium hover:text-white"
+              className="px-5 py-2.5 bg-white/[0.03] border border-white/5 rounded-xl text-neutral-400 transition-all flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest hover:text-white hover:border-white/10"
             >
-              <Save size={16} />
-              <span className="hidden sm:inline">Save</span>
+              <Save size={14} />
+              <span className="hidden sm:inline">Simpan Kode</span>
             </button>
             <button
               onClick={handleRun}
               disabled={isLoading}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all flex items-center gap-2.5 text-sm shadow-lg shadow-blue-500/20 disabled:opacity-50"
+              className="px-8 py-2.5 bg-white text-black rounded-xl font-black transition-all flex items-center gap-3 text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
             >
-              <Play size={16} fill="currentColor" />
-              Run Code
+              <Play size={14} fill="currentColor" />
+              Jalankan Kode
             </button>
           </div>
         </nav>
 
-        <div className="flex-1 p-4 md:p-6 md:pt-2 overflow-hidden w-full max-w-[1600px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full pb-2">
+        <div className="flex-1 p-4 md:p-6 md:pt-2 overflow-y-auto lg:overflow-hidden w-full max-w-[1600px] mx-auto custom-scrollbar">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:h-full pb-2">
 
-            <div className="flex flex-col gap-4 h-full">
-              <div className="flex-1 bg-[#0f172a] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col border border-white/5">
-                <div className="h-10 bg-[#0f172a] border-b border-white/5 flex items-center px-4 justify-between backdrop-blur-md">
-                  <div className="flex items-center gap-2">
-                    <Code2 size={14} className="text-blue-400" />
-                    <span className="text-xs font-medium text-slate-400 font-mono">main.py</span>
+            <div className="flex flex-col gap-4 min-h-[500px] lg:h-full">
+              <div className="flex-1 liquid-glass rounded-3xl overflow-hidden relative flex flex-col border border-white/5">
+                <div className="h-12 bg-white/[0.02] border-b border-white/5 flex items-center px-6 justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-white/20" />
+                    <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">Entry: main.py</span>
                   </div>
                 </div>
                 <div className="flex-1 relative">
@@ -257,17 +255,17 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-6 h-full overflow-hidden">
-              <div className="bg-[#050912] rounded-2xl overflow-hidden flex flex-col h-[45%] shadow-xl border border-white/5">
-                <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Terminal</span>
+            <div className="flex flex-col gap-6 min-h-[800px] lg:h-full lg:overflow-hidden">
+              <div className="liquid-glass-heavy rounded-3xl overflow-hidden flex flex-col h-[45%] border border-white/10">
+                <div className="px-6 py-4 border-b border-white/5 flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)] animate-pulse" />
+                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-neutral-400">Terminal Output</span>
                 </div>
-                <div className="p-5 font-mono text-sm overflow-auto flex-1 bg-[#050912]">
-                  <pre className={`leading-relaxed ${output ? 'text-emerald-400' : 'text-slate-600 italic'}`}>{output || "> Engine ready..."}</pre>
+                <div className="p-6 font-mono text-sm overflow-auto flex-1 bg-black/40">
+                  <pre className={`leading-relaxed ${output ? 'text-white' : 'text-neutral-600 italic'}`}>{output || "/// Waiting for execution..."}</pre>
                   {error && (
-                    <div className="mt-4 p-4 bg-red-500/5 rounded-xl border border-red-500/20">
-                      <pre className="text-red-300 whitespace-pre-wrap">{error}</pre>
+                    <div className="mt-4 p-5 bg-white/[0.02] rounded-2xl border border-white/5">
+                      <pre className="text-neutral-400 text-xs whitespace-pre-wrap">{error}</pre>
                     </div>
                   )}
                 </div>
@@ -278,31 +276,32 @@ export default function Home() {
                   <button
                     onClick={handleAskAI}
                     disabled={isLoading}
-                    className="w-full p-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl font-bold text-white flex items-center justify-center gap-3 transition-all shadow-xl"
+                    className="w-full p-5 bg-white text-black rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:scale-[1.01]"
                   >
-                    <Sparkles size={20} />
-                    <span>Analyze with Nalar AI</span>
+                    <Sparkles size={18} />
+                    <span>Initiate AI Synthesis</span>
                   </button>
                 )}
 
-                <div className={`flex-1 bg-slate-900/50 rounded-2xl p-6 overflow-hidden border border-white/5 transition-all duration-500 ${aiExplanation ? 'opacity-100' : 'opacity-50'}`}>
+                <div className={`flex-1 liquid-glass rounded-[2rem] p-8 overflow-hidden border border-white/5 transition-all duration-700 ${aiExplanation ? 'opacity-100' : 'opacity-40'}`}>
                   {!aiExplanation ? (
-                    <div className="h-full flex flex-col items-center justify-center text-slate-600 text-center gap-3">
-                      <Cpu size={32} />
-                      <p className="text-xs uppercase tracking-widest font-bold">AI Assistant Idle</p>
+                    <div className="h-full flex flex-col items-center justify-center text-neutral-600 text-center gap-4">
+                      <Cpu size={32} strokeWidth={1} />
+                      <p className="text-[9px] uppercase tracking-[0.3em] font-black">AI Processor Offline</p>
                     </div>
                   ) : (
                     <div className="h-full flex flex-col">
-                      <div className="flex items-center gap-3 mb-6 shrink-0">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white"><Sparkles size={20} /></div>
+                      <div className="flex items-center gap-4 mb-8 shrink-0">
+                        <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                          <Sparkles size={24} />
+                        </div>
                         <div>
-                          <h3 className="text-sm font-bold text-white tracking-tight italic">NALAR INTELLIGENCE</h3>
-                          <p className="text-[10px] text-slate-400 font-medium">Mentoring with Llama 3</p>
+                          <h3 className="text-lg font-black text-white tracking-tighter italic">NALAR</h3>
+                          <p className="text-[9px] text-neutral-500 font-bold uppercase tracking-widest">Penjelasan</p>
                         </div>
                       </div>
                       <div className="overflow-y-auto pr-2 custom-scrollbar flex-1">
-                        {/* Render Markdown dari database agar rapi */}
-                        <div className="prose prose-invert prose-sm max-w-none prose-p:text-slate-300 prose-strong:text-violet-400">
+                        <div className="prose prose-invert prose-sm max-w-none prose-p:text-neutral-400 prose-strong:text-white prose-code:text-white prose-code:bg-white/5 prose-code:px-1 prose-code:rounded">
                           <ReactMarkdown>{aiExplanation}</ReactMarkdown>
                         </div>
                       </div>
