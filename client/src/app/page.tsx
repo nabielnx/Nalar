@@ -309,7 +309,7 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="overflow-y-auto pr-2 custom-scrollbar flex-1">
-                        <div className="prose prose-invert prose-sm max-w-none prose-p:text-neutral-400 prose-strong:text-white prose-code:text-white prose-code:bg-white/5 prose-code:px-1 prose-code:rounded">
+                        <div className="prose prose-invert prose-base max-w-none prose-p:text-neutral-300 prose-strong:text-white prose-headings:text-white prose-code:text-white prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10">
                           <ReactMarkdown>{aiExplanation}</ReactMarkdown>
                         </div>
                       </div>
