@@ -118,56 +118,51 @@ export default function Login() {
                     </div>
                 )}
 
-                {/* --- TOMBOL GOOGLE LOGIN --- */}
-                <button
-                    onClick={handleGoogleLogin}
-                    disabled={loading}
-                    className="w-full flex items-center justify-center gap-3 py-4 px-4 bg-white text-black rounded-2xl font-bold hover:bg-neutral-200 transition-all active:scale-[0.98] mb-8 shadow-xl disabled:opacity-50"
-                >
-                    <GoogleLogo />
-                    <span className="tracking-tight">Authorize with Google</span>
-                </button>
-
-                <div className="relative mb-8">
-                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-white/5"></span></div>
-                    <div className="relative flex justify-center text-[9px] uppercase font-bold tracking-[0.2em]"><span className="bg-[#050505] px-4 text-neutral-600">Secure Protocol</span></div>
-                </div>
-
-                <form onSubmit={handleLogin} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <div className="space-y-4">
-                        <input
-                            type="email"
-                            placeholder="Email Address"
-                            className="w-full p-4 bg-white/[0.03] rounded-2xl border border-white/5 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all text-sm placeholder:text-neutral-600"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <input
-                            type="password"
-                            placeholder="Entry Key"
-                            className="w-full p-4 bg-white/[0.03] rounded-2xl border border-white/5 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all text-sm placeholder:text-neutral-600"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <div className="group">
+                            <label className="text-[10px] uppercase tracking-widest text-neutral-600 font-bold ml-4 mb-1 block">Identity Address</label>
+                            <input
+                                type="email"
+                                placeholder="name@domain.com"
+                                className="w-full p-4 bg-white/[0.03] rounded-2xl border border-white/5 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all text-sm placeholder:text-neutral-700"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="group">
+                            <label className="text-[10px] uppercase tracking-widest text-neutral-600 font-bold ml-4 mb-1 block">Access Key</label>
+                            <input
+                                type="password"
+                                placeholder="••••••••"
+                                className="w-full p-4 bg-white/[0.03] rounded-2xl border border-white/5 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all text-sm placeholder:text-neutral-700"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        {mode === 'register' && (
+                            <div className="group animate-in fade-in slide-in-from-top-2 duration-300">
+                                <label className="text-[10px] uppercase tracking-widest text-neutral-600 font-bold ml-4 mb-1 block">Verify Access Key</label>
+                                <input
+                                    type="password"
+                                    placeholder="••••••••"
+                                    className="w-full p-4 bg-white/[0.03] rounded-2xl border border-white/5 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all text-sm placeholder:text-neutral-700"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        )}
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="glass-button py-4 mt-4 rounded-2xl font-bold text-base text-white disabled:opacity-50 border border-white/10"
+                        className="glass-button py-4 mt-4 rounded-2xl font-bold text-base text-white disabled:opacity-50 border border-white/10 active:scale-[0.98] transition-all shadow-xl hover:shadow-white/5"
                     >
-                        {loading ? "Authenticating..." : "Establish Connection"}
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={handleSignUp}
-                        disabled={loading}
-                        className="text-neutral-600 text-[10px] uppercase tracking-widest hover:text-white transition-all font-bold py-4"
-                    >
-                        Request New Instance
+                        {loading ? "Establishing..." : mode === 'login' ? "Establish Connection" : "Initialize Identity"}
                     </button>
                 </form>
 
