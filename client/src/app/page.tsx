@@ -23,8 +23,14 @@ export default function Home() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/login");
+    try {
+      await supabase.auth.signOut();
+      router.push("/login");
+    } catch (err) {
+      console.error("Logout error:", err);
+      // Fallback redirect if signout fails
+      router.push("/login");
+    }
   };
 
   const fetchProjects = useCallback(async (userId: string) => {
@@ -184,10 +190,12 @@ export default function Home() {
           <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.02] border border-white/5 transition-colors group">
             <div className="flex items-center gap-3 truncate">
               <div className="w-9 h-9 rounded-xl bg-white/[0.05] text-white flex items-center justify-center text-xs font-black ring-1 ring-white/10">
-                {user?.email?.charAt(0).toUpperCase()}
+                {user?.email ? user.email.charAt(0).toUpperCase() : '?'}
               </div>
               <div className="flex flex-col truncate">
-                <span className="text-xs font-bold truncate text-neutral-300 group-hover:text-white uppercase tracking-tight">{user?.email?.split('@')[0]}</span>
+                <span className="text-xs font-bold truncate text-neutral-300 group-hover:text-white uppercase tracking-tight">
+                  {user?.email ? user.email.split('@')[0] : 'Guest'}
+                </span>
                 <span className="text-[9px] text-neutral-600 font-bold uppercase tracking-widest">Authorized</span>
               </div>
             </div>
@@ -301,7 +309,7 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="overflow-y-auto pr-2 custom-scrollbar flex-1">
-                        <div className="prose prose-invert prose-sm max-w-none prose-p:text-neutral-400 prose-strong:text-white prose-code:text-white prose-code:bg-white/5 prose-code:px-1 prose-code:rounded">
+                        <div className="prose prose-invert prose-base max-w-none prose-p:text-neutral-300 prose-strong:text-white prose-headings:text-white prose-code:text-white prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10">
                           <ReactMarkdown>{aiExplanation}</ReactMarkdown>
                         </div>
                       </div>

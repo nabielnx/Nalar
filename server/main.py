@@ -60,10 +60,26 @@ async def explain_error(request: CodeRequest):
     # Debug: Cek apakah Key terbaca di terminal backend
     print(f"DEBUG - API KEY: {os.getenv('GROQ_API_KEY')[:10]}...") 
     
-    prompt = f"Jelaskan kenapa kode ini error: {request.code}"
+    # Prompt yang lebih terstruktur sebagai mentor coding
+    system_instruction = (
+        "Anda adalah Nalar AI, seorang mentor pemrograman yang handal, ramah, dan profesional. "
+        "Tugas Anda adalah menjelaskan kesalahan kode Python kepada pengguna (pelajar) dan memberikan solusi terbaik. "
+        "Gunakan bahasa Indonesia yang santun namun teknis. "
+        "Format jawaban Anda dengan Markdown yang sangat rapi:\n"
+        "1. **Ringkasan Masalah**: Jelaskan dalam satu kalimat apa yang salah.\n"
+        "2. **Analisis Mendalam**: Mengapa hal itu terjadi? (Gunakan poin-poin jika perlu).\n"
+        "3. **Saran Perbaikan**: Berikan kode yang benar di dalam blok kode Markdown.\n"
+        "4. **Tips Nalar**: Berikan satu tips singkat agar pengguna tidak mengulangi kesalahan serupa.\n"
+        "Pastikan jawaban tidak terlalu panjang tapi sangat jelas."
+    )
+    
+    user_prompt = f"Tolong jelaskan kesalahan pada kode ini:\n\n```python\n{request.code}\n```"
+    
+    # Gabungkan instruksi ke dalam satu prompt untuk invoke
+    full_prompt = f"{system_instruction}\n\nUser: {user_prompt}"
     
     try:
-        response = llm.invoke(prompt)
+        response = llm.invoke(full_prompt)
         return {"explanation": response.content}
     except Exception as e:
         # Tampilkan error aslinya di terminal uvicorn
